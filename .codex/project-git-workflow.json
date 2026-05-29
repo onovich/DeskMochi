@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "initializedMarker": "codex-project-git-workflow: initialized",
+  "initializedAt": "2026-05-29 16:13:26 +08:00",
+  "projectName": "DeskMochi",
+  "repoRoot": "D:\\LabProjects\\DeskMochi",
+  "safeDirectory": "D:/LabProjects/DeskMochi",
+  "statusCommand": "git -c safe.directory=D:/LabProjects/DeskMochi status --short --branch",
+  "validationCommands": [],
+  "stagingPolicy": "ask each time",
+  "commitCommand": "",
+  "pushCommand": "git -c safe.directory=D:/LabProjects/DeskMochi push -u origin main",
+  "docsRequirement": "",
+  "forbiddenCommands": "Do not run destructive git commands unless the user explicitly asks."
+}
