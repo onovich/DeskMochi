@@ -1,0 +1,10 @@
+.godot/
+.godot_runtime/
+.dotnet_runtime/
+.codex/manual-smoke-*.json
+helper/**/bin/
+helper/**/obj/
+tools/**/bin/
+tools/**/obj/
+*.tmp
+*.log

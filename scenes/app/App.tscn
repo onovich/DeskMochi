@@ -1,0 +1,236 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/app/app.gd" id="1_app"]
+[ext_resource type="PackedScene" path="res://scenes/mochi/MochiView.tscn" id="2_mochi"]
+[ext_resource type="Script" path="res://scripts/presentation/control_panel.gd" id="3_panel"]
+[ext_resource type="Script" path="res://scripts/integration/helper_event_client.gd" id="4_helper"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_debug"]
+font_size = 13
+font_color = Color(0.25, 0.12, 0.16, 0.78)
+outline_size = 4
+outline_color = Color(1, 0.88, 0.92, 0.86)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(1, 0.92, 0.94, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.92, 0.48, 0.60, 0.46)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.24, 0.12, 0.16, 0.18)
+shadow_size = 8
+
+[node name="App" type="Node2D"]
+script = ExtResource("1_app")
+
+[node name="MochiView" parent="." instance=ExtResource("2_mochi")]
+
+[node name="HelperEventClient" type="HTTPRequest" parent="."]
+script = ExtResource("4_helper")
+
+[node name="DebugLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="DebugLabel" type="Label" parent="DebugLayer"]
+offset_left = 12.0
+offset_top = 10.0
+offset_right = 300.0
+offset_bottom = 120.0
+label_settings = SubResource("LabelSettings_debug")
+
+[node name="ControlLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="PanelToggleButton" type="Button" parent="ControlLayer"]
+custom_minimum_size = Vector2(34, 24)
+offset_left = 260.0
+offset_top = 110.0
+offset_right = 294.0
+offset_bottom = 134.0
+text = "..."
+
+[node name="ControlPanel" type="PanelContainer" parent="ControlLayer"]
+visible = false
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 748.0
+offset_bottom = 548.0
+mouse_filter = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+script = ExtResource("3_panel")
+
+[node name="Margin" type="MarginContainer" parent="ControlLayer/ControlPanel"]
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Rows" type="VBoxContainer" parent="ControlLayer/ControlPanel/Margin"]
+theme_override_constants/separation = 6
+
+[node name="Header" type="HBoxContainer" parent="ControlLayer/ControlPanel/Margin/Rows"]
+
+[node name="TitleLabel" type="Label" parent="ControlLayer/ControlPanel/Margin/Rows/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Focus"
+
+[node name="CloseButton" type="Button" parent="ControlLayer/ControlPanel/Margin/Rows/Header"]
+custom_minimum_size = Vector2(28, 24)
+layout_mode = 2
+text = "x"
+
+[node name="PerformanceRow" type="HBoxContainer" parent="ControlLayer/ControlPanel/Margin/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PerformanceButton" type="Button" parent="ControlLayer/ControlPanel/Margin/Rows/PerformanceRow"]
+custom_minimum_size = Vector2(136, 26)
+layout_mode = 2
+text = "Balanced 90/24"
+
+[node name="FpsLabel" type="Label" parent="ControlLayer/ControlPanel/Margin/Rows/PerformanceRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "FPS cap: 90"
+vertical_alignment = 1
+
+[node name="DebugButton" type="Button" parent="ControlLayer/ControlPanel/Margin/Rows/PerformanceRow"]
+custom_minimum_size = Vector2(62, 26)
+layout_mode = 2
+text = "Debug"
+
+[node name="TimerLabel" type="Label" parent="ControlLayer/ControlPanel/Margin/Rows"]
+layout_mode = 2
+text = "25:00"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="ControlLayer/ControlPanel/Margin/Rows"]
+layout_mode = 2
+text = "Ready"
+horizontal_alignment = 1
+
+[node name="PomodoroButtons" type="HBoxContainer" parent="ControlLayer/ControlPanel/Margin/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StartPauseButton" type="Button" parent="ControlLayer/ControlPanel/Margin/Rows/PomodoroButtons"]
+custom_minimum_size = Vector2(118, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Start"
+
+[node name="ResetButton" type="Button" parent="ControlLayer/ControlPanel/Margin/Rows/PomodoroButtons"]
+custom_minimum_size = Vector2(118, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reset"
+
+[node name="TodoTitle" type="Label" parent="ControlLayer/ControlPanel/Margin/Rows"]
+layout_mode = 2
+text = "Tasks"
+
+[node name="TodoAddRow" type="HBoxContainer" parent="ControlLayer/ControlPanel/Margin/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TodoInput" type="LineEdit" parent="ControlLayer/ControlPanel/Margin/Rows/TodoAddRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Add task"
+caret_blink = true
+
+[node name="TodoAddButton" type="Button" parent="ControlLayer/ControlPanel/Margin/Rows/TodoAddRow"]
+custom_minimum_size = Vector2(34, 28)
+layout_mode = 2
+text = "+"
+
+[node name="TodoScroll" type="ScrollContainer" parent="ControlLayer/ControlPanel/Margin/Rows"]
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="TodoList" type="VBoxContainer" parent="ControlLayer/ControlPanel/Margin/Rows/TodoScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="SlotTitle" type="Label" parent="ControlLayer/ControlPanel/Margin/Rows"]
+layout_mode = 2
+text = "Slots"
+
+[node name="HeadSlotRow" type="HBoxContainer" parent="ControlLayer/ControlPanel/Margin/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HeadSlotLabel" type="Label" parent="ControlLayer/ControlPanel/Margin/Rows/HeadSlotRow"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "Head"
+
+[node name="HeadSlotInput" type="LineEdit" parent="ControlLayer/ControlPanel/Margin/Rows/HeadSlotRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Image path"
+
+[node name="HeadSlotButton" type="Button" parent="ControlLayer/ControlPanel/Margin/Rows/HeadSlotRow"]
+custom_minimum_size = Vector2(46, 28)
+layout_mode = 2
+text = "Set"
+
+[node name="HeadSlotBrowseButton" type="Button" parent="ControlLayer/ControlPanel/Margin/Rows/HeadSlotRow"]
+custom_minimum_size = Vector2(34, 28)
+layout_mode = 2
+text = "Pick"
+
+[node name="FaceSlotRow" type="HBoxContainer" parent="ControlLayer/ControlPanel/Margin/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="FaceSlotLabel" type="Label" parent="ControlLayer/ControlPanel/Margin/Rows/FaceSlotRow"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "Face"
+
+[node name="FaceSlotInput" type="LineEdit" parent="ControlLayer/ControlPanel/Margin/Rows/FaceSlotRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Image path"
+
+[node name="FaceSlotButton" type="Button" parent="ControlLayer/ControlPanel/Margin/Rows/FaceSlotRow"]
+custom_minimum_size = Vector2(46, 28)
+layout_mode = 2
+text = "Set"
+
+[node name="FaceSlotBrowseButton" type="Button" parent="ControlLayer/ControlPanel/Margin/Rows/FaceSlotRow"]
+custom_minimum_size = Vector2(34, 28)
+layout_mode = 2
+text = "Pick"
+
+[node name="SmokeLayer" type="CanvasLayer" parent="."]
+visible = false
+layer = 20
+
+[node name="SmokeLabel" type="Label" parent="SmokeLayer"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 412.0
+offset_bottom = 82.0
+text = "Smoke cue"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_colors/font_color = Color(0.08, 0.11, 0.16, 1)
+theme_override_font_sizes/font_size = 14
+
+[node name="SlotFileDialog" type="FileDialog" parent="ControlLayer/ControlPanel"]
+title = "Select image"
+initial_position = 1
+size = Vector2i(1100, 760)
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png, *.jpg, *.jpeg, *.webp ; Images")

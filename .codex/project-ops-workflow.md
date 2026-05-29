@@ -35,7 +35,24 @@ C:\Users\Administrator\.codex\skills\project-ops-workflow\scripts\ops\ReleaseDry
 
 ## Validate Sequence
 
-No validation sequence is configured because this project has no application stack yet.
+Configured validation sequence:
+
+1. `envCheck`: verify the local Godot console executable.
+2. `build`: compile the DeskMochi helper service.
+3. `typecheck`: load the Godot project headlessly and quit.
+4. `test`: verify local user settings JSON roundtrip, productivity state behavior, helper behavior, and workflow script syntax.
+5. `smoke`: start the real Windows display path briefly with `--quit-after 30`.
+
+## Manual Smoke
+
+Interactive smoke is started by Codex, not assembled manually by the user:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\StartManualSmoke.ps1 -DemoEvents
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\StopManualSmoke.ps1
+```
+
+The user only observes and reports whether the visible checklist passes. Results belong in `docs/manual-smoke/results.md`.
 
 ## Dev Server
 

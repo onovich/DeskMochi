@@ -4,22 +4,40 @@
   "initializedAt": "2026-05-29 16:13:26 +08:00",
   "projectName": "DeskMochi",
   "repoRoot": "D:\\LabProjects\\DeskMochi",
-  "validateSequence": [],
+  "validateSequence": [
+    "envCheck",
+    "build",
+    "typecheck",
+    "test",
+    "smoke"
+  ],
   "operations": {
     "envCheck": {
-      "commands": []
+      "commands": [
+        "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\EnvCheck.ps1"
+      ]
     },
     "restoreDeps": {
-      "commands": []
+      "commands": [
+        "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\RestoreHelper.ps1"
+      ]
     },
     "installDeps": {
       "commands": []
     },
     "build": {
-      "commands": []
+      "commands": [
+        "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\RestoreHelper.ps1",
+        "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\BuildHelper.ps1"
+      ]
     },
     "test": {
-      "commands": []
+      "commands": [
+        "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\CheckUserSettings.ps1",
+        "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\CheckProductivityState.ps1",
+        "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\CheckHelperService.ps1",
+        "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\CheckWorkflowScripts.ps1"
+      ]
     },
     "lint": {
       "commands": []
@@ -28,7 +46,9 @@
       "commands": []
     },
     "typecheck": {
-      "commands": []
+      "commands": [
+        "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\ValidateGodot.ps1"
+      ]
     },
     "structureCheck": {
       "commands": []
@@ -40,14 +60,18 @@
       "commands": []
     },
     "smoke": {
-      "commands": [],
+      "commands": [
+        "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\SmokeGodotWindow.ps1"
+      ],
       "urls": []
     },
     "package": {
       "commands": []
     },
     "releaseDryRun": {
-      "commands": []
+      "commands": [
+        "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\CheckExportReadiness.ps1"
+      ]
     }
   },
   "devServer": {

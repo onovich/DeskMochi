@@ -1,0 +1,24 @@
+; Engine configuration file.
+; Prefer editing project settings through Godot when broad changes are needed.
+
+config_version=5
+
+[application]
+
+config/name="DeskMochi"
+run/main_scene="res://scenes/app/App.tscn"
+config/features=PackedStringArray("4.6", "C#", "Forward Plus")
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=420
+window/size/viewport_height=360
+window/size/window_width_override=420
+window/size/window_height_override=360
+window/per_pixel_transparency/allowed=true
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

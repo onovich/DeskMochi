@@ -1,0 +1,7 @@
+{
+  "port": 8765,
+  "keyboardEnabled": false,
+  "gitRepo": "D:\\LabProjects\\DeskMochi",
+  "tokenLog": "D:\\path\\to\\agent.log",
+  "demoEvents": false
+}
